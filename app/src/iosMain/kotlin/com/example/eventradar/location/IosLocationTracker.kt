@@ -4,6 +4,7 @@ import com.example.eventradar.model.LatLng
 import platform.CoreLocation.*
 import platform.darwin.NSObject
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.useContents
 
 @OptIn(ExperimentalForeignApi::class)
 class IosLocationTracker(
@@ -20,10 +21,9 @@ class IosLocationTracker(
 
     override fun locationManager(manager: CLLocationManager, didUpdateLocations: List<*>) {
         val location = didUpdateLocations.lastOrNull() as? CLLocation ?: return
-        val latLng = LatLng(
-            latitude = location.coordinate.useContents { latitude },
-            longitude = location.coordinate.useContents { longitude }
-        )
+        val latLng = location.coordinate.useContents { 
+            LatLng(latitude, longitude)
+        }
         onLocationUpdated(latLng)
     }
 

@@ -28,11 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.eventradar.R
 import com.example.eventradar.data.FestivalRepository
 import com.example.eventradar.model.Artist
 import com.example.eventradar.model.Festival
@@ -50,7 +48,7 @@ fun SubScreenHeader(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.back),
+                    contentDescription = "Zurück",
                 )
             }
         },
@@ -68,7 +66,7 @@ fun TicketsScreen(
     onBackClick: () -> Unit
 ) {
     Scaffold(
-        topBar = { SubScreenHeader(stringResource(R.string.tickets_title), onBackClick) }
+        topBar = { SubScreenHeader("Tickets", onBackClick) }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -144,7 +142,7 @@ fun LineUpScreen(
     }
 
     Scaffold(
-        topBar = { SubScreenHeader(stringResource(R.string.lineup_title), onBackClick) }
+        topBar = { SubScreenHeader("Lineup", onBackClick) }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             // Day Tabs
@@ -708,7 +706,7 @@ fun FloorplanScreen(
     onBackClick: () -> Unit
 ) {
     Scaffold(
-        topBar = { SubScreenHeader(stringResource(R.string.floorplan_title), onBackClick) }
+        topBar = { SubScreenHeader("Geländeplan", onBackClick) }
     ) { padding ->
         Column(
             modifier = Modifier

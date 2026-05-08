@@ -1,6 +1,5 @@
 package com.example.eventradar.ui
 
-import android.location.Location
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -50,13 +49,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import com.example.eventradar.R
 import com.example.eventradar.model.Festival
 import com.example.eventradar.model.LatLng
 import kotlin.math.*
@@ -90,7 +87,7 @@ fun FestivalListScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = stringResource(R.string.events),
+                                text = "Events",
                                 style = MaterialTheme.typography.headlineSmall,
                                 fontWeight = FontWeight.Bold
                             )
@@ -147,25 +144,25 @@ fun FestivalListScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = stringResource(R.string.events_found, uiState.filteredFestivals.size),
+                        text = "${uiState.filteredFestivals.size} Events gefunden",
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(R.string.sort_by), style = MaterialTheme.typography.labelSmall)
+                        Text("Sortieren nach:", style = MaterialTheme.typography.labelSmall)
                         Spacer(modifier = Modifier.width(4.dp))
                         FilterChip(
                             selected = !uiState.sortByDistance,
                             onClick = { viewModel.onSortOrderChanged(false) },
-                            label = { Text(stringResource(R.string.date), style = MaterialTheme.typography.labelSmall) },
+                            label = { Text("Datum", style = MaterialTheme.typography.labelSmall) },
                             modifier = Modifier.height(28.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         FilterChip(
                             selected = uiState.sortByDistance,
                             onClick = { viewModel.onSortOrderChanged(true) },
-                            label = { Text(stringResource(R.string.distance), style = MaterialTheme.typography.labelSmall) },
+                            label = { Text("Entfernung", style = MaterialTheme.typography.labelSmall) },
                             modifier = Modifier.height(28.dp)
                         )
                     }
@@ -258,7 +255,7 @@ fun FestivalListScreen(
 fun FilterSection(viewModel: FestivalViewModel) {
     val uiState = viewModel.uiState
     val genres = listOf("Alle", "Hardstyle", "Hardstyle Classics", "Rawstyle", "Rawstyle Classics", "Hardcore", "Hardcore Classics", "Hard Techno")
-    val allLabel = stringResource(R.string.all)
+    val allLabel = "Alle"
 
     Column {
         // Secondary Filters (Genre, Type, Location, Age)
@@ -271,9 +268,9 @@ fun FilterSection(viewModel: FestivalViewModel) {
         ) {
             // Group: Genre (Dropdown)
             FilterGroup(
-                label = stringResource(R.string.filter_genre),
+                label = "Genre:",
                 selectedLabel = uiState.filterGenre ?: allLabel,
-                options = genres.map { if (it == "Alle") allLabel else it },
+                options = genres,
                 onOptionSelected = { selected ->
                     viewModel.onGenreFilterChanged(if (selected == allLabel) null else selected)
                 }
@@ -281,17 +278,17 @@ fun FilterSection(viewModel: FestivalViewModel) {
 
             // Group: Type
             FilterGroup(
-                label = stringResource(R.string.filter_type),
+                label = "Typ:",
                 selectedLabel = when(uiState.filterWeekend) {
-                    true -> stringResource(R.string.weekend)
-                    false -> stringResource(R.string.day)
-                    else -> stringResource(R.string.all)
+                    true -> "Wochenende"
+                    false -> "Tag"
+                    else -> "Alle"
                 },
-                options = listOf(stringResource(R.string.all), stringResource(R.string.weekend), stringResource(R.string.day)),
+                options = listOf("Alle", "Wochenende", "Tag"),
                 onOptionSelected = { 
                     val value = when(it) {
-                        "Weekend" -> true
-                        "Tag", "Day" -> false
+                        "Wochenende" -> true
+                        "Tag" -> false
                         else -> null
                     }
                     viewModel.onTypeFilterChanged(value)
@@ -300,13 +297,13 @@ fun FilterSection(viewModel: FestivalViewModel) {
 
             // Group: Location
             FilterGroup(
-                label = stringResource(R.string.filter_location),
+                label = "Ort:",
                 selectedLabel = when(uiState.filterOutdoor) {
-                    true -> stringResource(R.string.outdoor)
-                    false -> stringResource(R.string.indoor)
-                    else -> stringResource(R.string.all)
+                    true -> "Outdoor"
+                    false -> "Indoor"
+                    else -> "Alle"
                 },
-                options = listOf(stringResource(R.string.all), stringResource(R.string.outdoor), stringResource(R.string.indoor)),
+                options = listOf("Alle", "Outdoor", "Indoor"),
                 onOptionSelected = { 
                     val value = when(it) {
                         "Outdoor" -> true
@@ -319,13 +316,13 @@ fun FilterSection(viewModel: FestivalViewModel) {
 
             // Group: Age
             FilterGroup(
-                label = stringResource(R.string.filter_age),
+                label = "Alter:",
                 selectedLabel = when(uiState.filterMinAge) {
                     16 -> "16+"
                     18 -> "18+"
-                    else -> stringResource(R.string.all)
+                    else -> "Alle"
                 },
-                options = listOf(stringResource(R.string.all), "16+", "18+"),
+                options = listOf("Alle", "16+", "18+"),
                 onOptionSelected = { 
                     val value = when(it) {
                         "16+" -> 16
@@ -351,7 +348,7 @@ fun FilterGroup(
 
     Box {
         FilterChip(
-            selected = selectedLabel != stringResource(R.string.all),
+            selected = selectedLabel != "Alle",
             onClick = { expanded = true },
             label = { 
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -371,7 +368,7 @@ fun FilterGroup(
             ),
             border = FilterChipDefaults.filterChipBorder(
                 enabled = true,
-                selected = selectedLabel != stringResource(R.string.all),
+                selected = selectedLabel != "Alle",
                 borderColor = Color.White.copy(alpha = 0.3f),
                 selectedBorderColor = Color.White,
                 borderWidth = 1.dp,
@@ -484,7 +481,7 @@ fun FestivalListItem(
                 }
                 if (distance != null) {
                     Text(
-                        text = stringResource(R.string.km_away, distance),
+                        text = "$distance km entfernt",
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.White.copy(alpha = 0.7f)
                     )

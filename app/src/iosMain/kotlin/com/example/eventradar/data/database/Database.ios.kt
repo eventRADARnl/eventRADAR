@@ -8,6 +8,6 @@ fun getDatabaseBuilder(): RoomDatabase.Builder<EventRadarDatabase> {
     val dbFilePath = NSHomeDirectory() + "/event_radar_database.db"
     return Room.databaseBuilder<EventRadarDatabase>(
         name = dbFilePath,
-        factory =  { EventRadarDatabase::class.instantiateImpl() }
+        factory =  { AppDatabaseConstructor.initialize() }
     )
 }

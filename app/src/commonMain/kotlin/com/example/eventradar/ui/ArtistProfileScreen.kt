@@ -37,11 +37,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.example.eventradar.R
 import com.example.eventradar.model.Artist
 import com.example.eventradar.model.Festival
 
@@ -67,7 +65,7 @@ fun ArtistProfileScreen(
                 IconButton(onClick = onBackClick) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.back),
+                        contentDescription = "Zurück",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
@@ -121,9 +119,9 @@ fun ArtistProfileScreen(
                     if (isFollowed) {
                         Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(stringResource(R.string.following))
+                        Text("Folge ich")
                     } else {
-                        Text(stringResource(R.string.follow))
+                        Text("Folgen")
                     }
                 }
                 

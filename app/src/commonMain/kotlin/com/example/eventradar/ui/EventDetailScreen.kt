@@ -1,7 +1,5 @@
 package com.example.eventradar.ui
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -21,16 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import com.example.eventradar.R
 import com.example.eventradar.model.Festival
 import com.example.eventradar.ui.components.InfoRow
-import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +46,6 @@ fun EventDetailScreen(
     onFloorplanClick: () -> Unit = {},
     onProfileClick: (String) -> Unit = {}
 ) {
-    val context = LocalContext.current
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -65,7 +58,7 @@ fun EventDetailScreen(
                     selected = false,
                     onClick = onTicketsClick,
                     icon = { Icon(Icons.Default.Star, contentDescription = null) },
-                    label = { Text(stringResource(R.string.buy_tickets), style = MaterialTheme.typography.labelSmall) },
+                    label = { Text("Tickets kaufen", style = MaterialTheme.typography.labelSmall) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = Color.White,
                         unselectedTextColor = Color.White,
@@ -76,7 +69,7 @@ fun EventDetailScreen(
                     selected = false,
                     onClick = onLineUpClick,
                     icon = { Icon(Icons.Default.Group, contentDescription = null) },
-                    label = { Text(stringResource(R.string.view_lineup), style = MaterialTheme.typography.labelSmall) },
+                    label = { Text("Lineup", style = MaterialTheme.typography.labelSmall) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = Color.White,
                         unselectedTextColor = Color.White,
@@ -87,7 +80,7 @@ fun EventDetailScreen(
                     selected = false,
                     onClick = onTimetableClick,
                     icon = { Icon(Icons.AutoMirrored.Filled.List, contentDescription = null) },
-                    label = { Text(stringResource(R.string.timetable), style = MaterialTheme.typography.labelSmall) },
+                    label = { Text("Timetable", style = MaterialTheme.typography.labelSmall) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = Color.White,
                         unselectedTextColor = Color.White,
@@ -98,7 +91,7 @@ fun EventDetailScreen(
                     selected = false,
                     onClick = onFloorplanClick,
                     icon = { Icon(Icons.Default.LocationOn, contentDescription = null) },
-                    label = { Text(stringResource(R.string.floorplan), style = MaterialTheme.typography.labelSmall) },
+                    label = { Text("Geländeplan", style = MaterialTheme.typography.labelSmall) },
                     colors = NavigationBarItemDefaults.colors(
                         unselectedIconColor = Color.White,
                         unselectedTextColor = Color.White,
@@ -144,7 +137,7 @@ fun EventDetailScreen(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.back),
+                            contentDescription = "Zurück",
                             tint = Color.White
                         )
                     }
@@ -244,7 +237,7 @@ fun EventDetailScreen(
                             icon = Icons.Default.Info,
                             text = if (festival.isOutdoor) stringResource(R.string.outdoor_event) else stringResource(R.string.indoor_event)
                         )
-                        InfoRow(icon = Icons.Default.CheckCircle, text = stringResource(R.string.years_old, festival.minAge))
+                        InfoRow(icon = Icons.Default.CheckCircle, text = "${festival.minAge}+ Jahre")
                     }
                 }
 
@@ -252,7 +245,7 @@ fun EventDetailScreen(
 
                 // Description
                 Text(
-                    text = stringResource(R.string.about_event),
+                    text = "Über dieses Event",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -369,8 +362,7 @@ fun EventDetailScreen(
                 // Action Buttons
                 Button(
                     onClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(festival.ticketUrl))
-                        context.startActivity(intent)
+                        // Web link handling needed for multiplatform
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -379,7 +371,7 @@ fun EventDetailScreen(
                 ) {
                     Icon(Icons.Default.Link, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.buy_tickets), fontSize = 18.sp)
+                    Text("Tickets kaufen", fontSize = 18.sp)
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
