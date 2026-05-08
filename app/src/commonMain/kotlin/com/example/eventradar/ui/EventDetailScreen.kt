@@ -150,7 +150,7 @@ fun EventDetailScreen(
                     ) {
                         Icon(
                             imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                            contentDescription = stringResource(R.string.favorite),
+                            contentDescription = "Favorit",
                             tint = if (isFavorite) Color.Red else Color.White,
                             modifier = Modifier.size(30.dp)
                         )
@@ -235,7 +235,7 @@ fun EventDetailScreen(
                         }
                         InfoRow(
                             icon = Icons.Default.Info,
-                            text = if (festival.isOutdoor) stringResource(R.string.outdoor_event) else stringResource(R.string.indoor_event)
+                            text = if (festival.isOutdoor) "Outdoor Event" else "Indoor Event"
                         )
                         InfoRow(icon = Icons.Default.CheckCircle, text = "${festival.minAge}+ Jahre")
                     }
