@@ -24,7 +24,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build iOS Framework
-        run: ./gradlew :app:assembleComposeAppReleaseFrameworkIosArm64
+        run: ./gradlew :app:linkReleaseFrameworkIosArm64
 
       - name: Build Xcode Project
         run: |
