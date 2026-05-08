@@ -19,6 +19,10 @@ kotlin {
         }
     }
     
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -53,11 +57,9 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network)
             implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
             implementation(libs.androidx.material.icons.extended)
             implementation(libs.kotlinx.datetime)
-            
-            // Image Picker
-            implementation("io.github.onseok:peekaboo-image-picker:0.5.2")
             
             // Supabase & Ktor
             implementation(libs.supabase.auth)
@@ -74,6 +76,19 @@ kotlin {
             implementation(libs.play.services.maps)
             implementation(libs.maps.compose)
             implementation(libs.ktor.client.okhttp)
+        }
+        
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain.get())
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
         }
     }
 }
