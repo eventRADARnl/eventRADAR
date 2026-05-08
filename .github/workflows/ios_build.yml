@@ -42,7 +42,7 @@ jobs:
       - name: Package IPA
         run: |
           mkdir -p build/Payload
-          cp -R iosApp/build/Build/Products/Release-iphoneos/iosApp.app build/Payload/
+          cp -R iosApp/build/Build/Products/Release-iphoneos/eventRADAR.app build/Payload/
           cd build
           zip -r iosApp.ipa Payload
           
