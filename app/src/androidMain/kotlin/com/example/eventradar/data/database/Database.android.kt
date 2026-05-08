@@ -12,7 +12,3 @@ fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<EventRadarDatabase> {
         name = dbFile.absolutePath
     )
 }
-
-actual object AppDatabaseConstructor : androidx.room.RoomDatabaseConstructor<EventRadarDatabase> {
-    override fun initialize(): EventRadarDatabase = throw NotImplementedError()
-}

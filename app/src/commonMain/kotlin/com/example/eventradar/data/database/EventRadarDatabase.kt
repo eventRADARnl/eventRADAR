@@ -19,5 +19,6 @@ abstract class EventRadarDatabase : RoomDatabase() {
     abstract fun selectedSetDao(): SelectedSetDao
 }
 
-// Room KMP constructor requirement
+// Room KMP constructor requirement. The compiler generates the actual implementation.
+@Suppress("NO_ACTUAL_FOR_EXPECT")
 expect object AppDatabaseConstructor : RoomDatabaseConstructor<EventRadarDatabase>

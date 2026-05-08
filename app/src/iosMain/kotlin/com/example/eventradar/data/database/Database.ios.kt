@@ -8,10 +8,6 @@ fun getDatabaseBuilder(): RoomDatabase.Builder<EventRadarDatabase> {
     val dbFilePath = NSHomeDirectory() + "/event_radar_database.db"
     return Room.databaseBuilder<EventRadarDatabase>(
         name = dbFilePath,
-        factory =  { AppDatabaseConstructor.initialize() }
+        factory = { AppDatabaseConstructor.initialize() }
     )
-}
-
-actual object AppDatabaseConstructor : androidx.room.RoomDatabaseConstructor<EventRadarDatabase> {
-    override fun initialize(): EventRadarDatabase = throw NotImplementedError()
 }
