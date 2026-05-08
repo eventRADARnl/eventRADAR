@@ -14,5 +14,5 @@ fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<EventRadarDatabase> {
 }
 
 actual object AppDatabaseConstructor : androidx.room.RoomDatabaseConstructor<EventRadarDatabase> {
-    actual override fun initialize(): EventRadarDatabase = throw NotImplementedError()
+    override fun initialize(): EventRadarDatabase = throw NotImplementedError()
 }

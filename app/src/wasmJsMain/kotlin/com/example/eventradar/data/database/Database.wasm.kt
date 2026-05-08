@@ -1,5 +1,5 @@
 package com.example.eventradar.data.database
 
 actual object AppDatabaseConstructor : androidx.room.RoomDatabaseConstructor<EventRadarDatabase> {
-    actual override fun initialize(): EventRadarDatabase = throw NotImplementedError()
+    override fun initialize(): EventRadarDatabase = throw NotImplementedError()
 }

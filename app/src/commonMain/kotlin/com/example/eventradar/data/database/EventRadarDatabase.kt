@@ -19,7 +19,5 @@ abstract class EventRadarDatabase : RoomDatabase() {
     abstract fun selectedSetDao(): SelectedSetDao
 }
 
-// Erforderlich für Room Multiplatform
-expect object AppDatabaseConstructor : RoomDatabaseConstructor<EventRadarDatabase> {
-    override fun initialize(): EventRadarDatabase
-}
+// Room KMP constructor requirement
+expect object AppDatabaseConstructor : RoomDatabaseConstructor<EventRadarDatabase>
