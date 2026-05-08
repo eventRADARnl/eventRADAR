@@ -20,26 +20,24 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Build iOS Framework
         run: ./gradlew :app:assembleComposeAppReleaseFrameworkIosArm64
 
       - name: Build Xcode Project
         run: |
-          if [ -d "iosApp" ]; then
-            cd iosApp
-            xcodebuild -project iosApp.xcodeproj \
-              -scheme iosApp \
-              -configuration Release \
-              -sdk iphoneos \
-              -derivedDataPath build \
-              CODE_SIGNING_ALLOWED=NO \
-              CODE_SIGNING_REQUIRED=NO \
-              CODE_SIGN_ENTITLEMENTS="" \
-              CODE_SIGNING_STYLE=Manual
-          else
-            echo "Error: iosApp directory not found. Please add the Xcode project from the Compose Multiplatform Wizard."
-            exit 1
-          fi
+          cd iosApp
+          xcodebuild -project iosApp.xcodeproj \
+            -scheme iosApp \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_ENTITLEMENTS="" \
+            CODE_SIGNING_STYLE=Manual
             
       - name: Package IPA
         run: |
